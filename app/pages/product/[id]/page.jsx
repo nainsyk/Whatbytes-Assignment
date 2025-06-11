@@ -1,9 +1,11 @@
 'use client';
 import React from 'react';
-export default function ProductDetail({ params }) {
-  const { id } = params;
+import { useParams } from 'next/navigation';
+import Header from '../../../components/Header';
+import Footer from '../../../components/Footer';
 
-  <Header />
+export default function ProductDetail() {
+  const { id } = useParams();
   const products = [
     {
       id: '1',
@@ -79,42 +81,48 @@ export default function ProductDetail({ params }) {
     },
   ];
 
-  const product = products.find((item) => item.id === id);
+    const product = products.find((item) => item.id === id);
 
-  if (!product) return <div className="p-8 text-center text-red-500">Product not found</div>;
+  if (!product) {
+    return (
+      <>
+        <Header />
+        <div className="p-8 text-center text-red-500">Product not found</div>
+        <Footer />
+      </>
+    );
+  }
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-        {/* Left: Product Image */}
-        <div className="bg-gray-100 rounded-lg p-4 shadow">
-          <img
-            src={product.image}
-            alt={product.title}
-            className="w-full h-[400px] object-contain"
-          />
-        </div>
-
-        {/* Right: Product Details */}
-        <div className="space-y-4">
-          <h1 className="text-3xl font-bold text-gray-800">{product.title}</h1>
-
-          <p className="text-sm text-gray-600">
-            <span className="font-semibold">Category:</span> {product.category}
-          </p>
-
-          <p className="text-2xl text-blue-600 font-semibold">${product.price}</p>
-
-          <p className="text-blue-900 font-medium text-lg">
-            {'⭐'.repeat(product.rating)}{' '}
-            <span className="text-sm text-gray-500 ml-1">({product.rating}/5)</span>
-          </p>
-
-          <p className="text-gray-700 text-base leading-relaxed">
-            {product.description}
-          </p>
+    <>
+      <Header />
+      <div className="max-w-5xl mx-auto px-6 py-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          <div className="bg-gray-100 rounded-lg p-4 shadow">
+            <img
+              src={product.image}
+              alt={product.title}
+              className="w-full h-[400px] object-contain"
+            />
+          </div>
+          <div className="space-y-4">
+            <h1 className="text-3xl font-bold text-gray-800">{product.title}</h1>
+            <p className="text-sm text-gray-600">
+              <span className="font-semibold">Category:</span> {product.category}
+            </p>
+            <p className="text-2xl text-blue-600 font-semibold">${product.price}</p>
+            <p className="text-blue-900 font-medium text-lg">
+              {'⭐'.repeat(product.rating)}{' '}
+              <span className="text-sm text-gray-500 ml-1">({product.rating}/5)</span>
+            </p>
+            <p className="text-gray-700 text-base leading-relaxed">
+              {product.description}
+            </p>
+            
+          </div>
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }

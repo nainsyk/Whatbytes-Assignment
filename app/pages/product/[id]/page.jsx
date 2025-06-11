@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
-
 export default function ProductDetail({ params }) {
   const { id } = params;
 
+  <Header />
   const products = [
     {
       id: '1',
